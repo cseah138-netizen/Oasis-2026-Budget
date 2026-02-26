@@ -122,7 +122,7 @@ if check_password():
         reserve_data = df[df['Category'].str.contains('Reserve', case=False, na=False)].sum(numeric_only=True)
         
         fig_reserve = go.Figure()
-        y_axis = ["Reserve Fund"]
+        y_axis = ["Reserve Fund Collection"]
         fig_reserve.add_trace(go.Bar(y=y_axis, x=[reserve_data['2024 Actuals']], name='2024 Actuals', orientation='h', marker_color=color_map['2024 Actuals']))
         fig_reserve.add_trace(go.Bar(y=y_axis, x=[reserve_data['2025 Actuals']], name='2025 Actuals', orientation='h', marker_color=color_map['2025 Actuals']))
         fig_reserve.add_trace(go.Bar(y=y_axis, x=[reserve_data['2026 Budget']], name='2026 Budget', orientation='h', marker_color=color_map['2026 Budget']))
