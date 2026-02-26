@@ -1,0 +1,73 @@
+﻿Line,Category,Area,2024 Budget,2024 Actuals,2025 Budget,2025 Actuals,2025 Notes,2026 Budget,2026 Notes
+1,Operation Maintenance,Pool Equipment,60000,44338.43,45000,339434.04,"Just 3 invoices combined represented an expense of over $90,000 for repairs on the pool heater, replacing 3 burned out lights and replacement of a chlorinator",73600,"On average, $2,800 pesos were monthly spent on Pool Equipment. Adding $40,000 for spare parts"
+2,Operation Maintenance,Pool Cleaning Service,417600,425040.08,13920,1132.29,,10000,Pool Inspection if Needed
+3,Operation Maintenance,Pool Cleaning Chemicals,175000,52815.32,117268.56,104377.82,,103000,Average $8600 per month
+4,Operation Maintenance,Painting Products,30000,24567.31,20000,72566.65,"Budget included painting material only. The actual work required to bring external services, plus additional materials",53000,"Maintenance requested a total of 20 paint buckets for the whole year, this is for Interiors (offices, bathrooms, gym, etc) and exterior paint"
+5,Operation Maintenance,Light Bulbs,30000,8714.72,20000,20408.75,,24000,"$2,000 per month"
+6,Operation Maintenance,Electrical Supplies,30000,2235.44,15000,30149.9,,50000,Repair and maintenance
+7,Operation Maintenance,Diesel Fuel,30000,1122,35000,816.8,,2000,Emergency generator fuel
+8,Operation Maintenance,Elevators Maintenance,40000,19911.72,163754,157141.46,,176000,"Allow a 10% increase in contract + $50,000 for spare parts / repairs"
+9,Operation Maintenance,Tools,80000,79738.56,60000,98312.88,"Inventory of tools required for operation: compressor, power washer, ladders, etc.",0,Budget for this line moved to Line 25
+10,Operation Maintenance,Pest Control,81600,56040.1,40710,63123.96,Monthly contract for common areas,64000,Monthly contract for common areas
+11,Operation Maintenance,Gym Leasing,436008,415793.59,117832.8,119668.63,"Gym equipment was leased for the first 5 months of the year, afterwards it was purchased",0,Category to be removed for 2027
+12,Operation Maintenance,Gym equipment maintenance,0,0,36000,21402,,69000,2025 Maintenance contract was from June to December. 2026: full year
+13,Operation Maintenance,Furniture Repairs / Replacement,31000,63920.46,40000,67842.92,Annual Canister Inspection / Replace,100000,Aging and sun-damaged furniture
+14,Operation Maintenance,Fire Extinguishers,10000,6310,10000,5904,,7000,Annual Canister Inspection / Replace
+15,Operation Maintenance,Water Pumps Maintenance,30000,3793.47,47734,18419.46,,76000,Annual Maintenance plus PLC Controller Upgrade
+16,Operation Maintenance,Pools and Jacuzzi Heaters Maintenance,0,0,62180,17537.72,,30000,Garden pool heater exhaust modification to prevent overheating and motor burn out
+17,Operation Maintenance,Fire Protection System Maintenance - Hydrants,69924.71,49755.65,26100,0,,12000,New external service specialist
+18,Operation Maintenance,Wood Pool Decks,0,0,55126,0,"In 2025 this category was designated in the
+Capital Expenses. From 2026 and on this will
+be a bi-annual service",275000,"Maintaining the wood throughout the property remains a learning process. A total wood maintenance plan has been developed.
+Inspections will occur before and after rainy season.  Treatments will be applied as required.  This encompasses lines 18, 19, and 20."
+19,Operation Maintenance,Wood Maintenance Ground Floor Deck,0,0,33772,0,Included in Line 18,0,Included in Line 18
+20,Operation Maintenance,Wooden Dividers,0,0,39072,78561,2025 budget based on in-house maintenance. The scope of work expanded and required outsourced maintenance service moving forward.,50000,
+21,Operation Maintenance,Emergency Generator Maintenance,0,0,50000,30068.24,Annual service.,20000,Annual Service
+22,Operation Maintenance,Window Cleaning,0,0,0,0,Not included in 2025 Budget,60000,Annual cleaning after rainy season
+23,Operation Maintenance,Dryer Vents Cleaning,0,0,0,15660,Not included in 2025 Budget,26000,Unaccessable exterior vents require cleaning to prevent fire hazard
+24,Operation Maintenance,Condenser tower louvers,0,0,0,28348.89,Not included in 2025 Budget,47000,Annual cleaning to prevent oxidization
+25,Operation Maintenance,"Tiles, Shelving, Maintenance Tools",0,0,0,0,Not included in 2025 Budget,75000,"Backup Inventory: pavers, tiles, storage shelving for workshop."
+26,Operation Maintenance,Water Cistern Cleaning,0,0,0,39440,Not included in 2025 Budget,40000,Annual Service
+27,Operation Maintenance,General Maintenance,0,0,0,123005.18,Not included in 2025 Budget,120000,"Repairs of dry wall, common area railing, common area air conditioners,Main Machinery Room, bathroom, floor repairs"
+28,Gardening,Gardening Maintenance Provider,620000,744203,950000,975395.48,"2025 Provider failed to perform resulting in the need to replace plant material, continual damage to sprinkler system, constant need for administration oversight and supervision. After reviewing multiple providers, a new higher-quality provided to be contracted for 2026",1263600,New Provider Annual contract
+29,Gardening,Gardening Materials,36000,16263.5,20000,77877.01,"Front garden river water feature failed,
+requiring a redesign. To minimize ongoing
+maintenance a dry river feature was installed,
+which required the purchase of river rocks.",30000,"Soil and plant replacements, plus fertilizers."
+30,Cleaning,Cleaning supplies / equipment,66000,86156.41,84000,76678.27,,90000,
+31,Administration,Salaries,1134000,1360494.71,1854750.3,1712816.49,,2153528.08,"4% standard cost of living increase.  2025 maintenance team includes 2 positions.  1 is senior maintenance person, and 1 has primary responsibility for pool and water feature maintenance, resulting in a general maintenance shortage. The scale of the property requires more support in a 3rd maintenance position ."
+32,Administration,Uniforms,40000,10405.2,40000,8433.2,,40000,"Adherance to uniform code, including purchase of necessary footwear."
+33,Administration,Employee Christmas party,25000,19476,25000,32989.15,,35000,Annual employee appreciation event
+34,Administration,Security Service Provider,561252,1084507.2,1263106.32,1205533.96,"Security provider failed to perform: refused to provide or accept training, would not work under contract, did not respond appropriately to owner issues.",1385147.22,New provider annual contract
+35,Administration,Main Access Control Equipment,0,0,52722,52722,,0,No 2026 expense
+36,Administration,Office Supplies,20000,14845.96,20000,43678.41,"Including staff cell-phones, signage, outsourced printing",25000,
+37,Administration,Severance Payments,50000,0,50000,0,,0,
+38,Administration,Office equipment,80000,6090,50000,47154.94,"Includes chairs, printers, computer",20000,"Chairs, computer, printer"
+39,Administration,Drinking Water,10000,6607.06,8000,12326,,12000,Self-explanatory
+40,Administration,Bank Fees,12000,7714.24,10000,3495.69,,4000,Self-explanatory
+41,Administration,Property management,1252800,1154200,1315440,1299780,,1315440,"In acknowledgement of past challenges, Zen offered to keep same rate for 2026"
+42,Administration,Legal Fees,60000,0,40000,8120,,20000,Review of service provider contracts
+43,Administration,Assembly Expenses,50000,0,50000,30311.46,,30000,"Chair rental, audio/video, food and beverages, notaries expenses"
+44,Administration,Security Cameras,37242,0,30000,38359.46,Includes audio and wi-fi repairs,60000,Maintenance / new / replacements
+45,Administration,Garbage collection,36000,34800,0,0,,15000,Gratuity for municipal / local garbage cleanup
+46,Administration,Non Factura Items,5000,110322.75,36000,82312.72,Small expenses without factura that cannot be deducted,10000,Small expenses without factura that cannot be deducted
+47,Administration,ISR (Impuesto Sobre la Renta) Tax,0,0,5000,67422,,5000,30% added as a penalty for making a payment without a factura
+47.1,Administration,Unbudget Expenses,0,252598.05,0,0,,0,
+48,General,Water,500000,433430.55,500000,520338.64,,561965.73,2025 expense plus a projected up to 8% increase for 2026
+49,General,Electricity,500000,288185.7,350000,336238.92,,344644.89,2025 expense plus a projected up to 2.5% increase for 2026
+50,General,"Propane Gas (Pools, Firepit and BBQ)",138000,285137.81,372000,452900.54,,475545.57,2025 expense plus a projected up to 5% increase for 2026
+51,General,Megacable,9600,8690,9600,15254,Additional network lines added,30840,Increase bandwidth for common areas and security office
+52,General,Cell Telephone Service,18948,13410.16,25200,14397,,20400,"Manager, Assistant, Maintenance & Security"
+53,General,Building Insurance,670000,559526,636474,615783.58,,665918.73,Current policy (includes Hydro) + D&O Policy. This policy renews in May.  Esimated until final quote is received.
+54,General,Insurance Gym Equipment,0,0,11160,10303.6,Original lease required equipment insurance,0,Required by previous lease agreement. No longer applies
+55,General,Frakcio System.,0,0,24000,31320,Annual contract,31320,Communication platform
+56,General,Automated Reading System (CFE),0,0,11600,0,,12000,System to remotely read all CFE meters
+57,General,General Contingency,200000,0,200000,0,,150000,Unforseen expenses
+58,General,Federal  Zone,130000,120003.14,130000,0,Federal Zone Payment due in 2027,0,Federal Zone Payment due in 2027.  Lengthy reapplication process begins in late 2026.
+59,Capital Expenses / Special Projects,Pool Furniture Purchase,0,0,148000,116043.5,,0,No purchase expected in 2026
+60,Capital Expenses / Special Projects,Window cleaning,0,0,58000,58000,,0,See line 22
+61,Capital Expenses / Special Projects,Gym equipment,0,0,26360,60351.18,Includes small accessories and refresh,30000,Swap one excercise bike for spinning bike
+62,Capital Expenses / Special Projects,Rehabilitation of the wooden deck of the upper pool and ground floor.,0,0,545872,430769.8,See detailed explanation in Assembly presentation page 22,0,Already in Line 18
+63,Capital Expenses / Special Projects,Irrigation System Update,0,0,0,0,,90468.4,Planter boxes causing water stains and deteroriation on side of building. Repair as required to current system.
+64,Capital Expenses / Special Projects,Audio Systems,0,0,0,0,,100000,"Repair, purchase of new equipment, and system reconfiguration was required, quoted, and paid for in February 2026 due to failure of wiring, equipment, main switch, and system configuration, resulting in intermitent wi-fi connectivity and inconsistent service, negatively affecting functionality of security cameras."
+65,Reserve Fund,Reserve fund,642025.29,642025.29,260000,260000,,260000,Continue to build fund
