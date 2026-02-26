@@ -147,16 +147,20 @@ if check_password():
             for _, row in top_inc.iterrows():
                 # Display converted amounts
                 diff_val = convert(row['Diff'])
+                # Cleaning justification for display
+                clean_note = str(row['2026 Notes']).replace("¨", "").replace("¨", "")
                 with st.expander(f"**{row['Area']}**: +{symbol[currency]}{diff_val:,.0f}"):
-                    st.write(f"**Justification:** {row['2026 Notes']}")
+                    st.write(f"**Justification:** {clean_note}")
         
         with dec_col:
             st.subheader("Top 5 Decreases")
             top_dec = main_adj_df.nsmallest(5, 'Diff')
             for _, row in top_dec.iterrows():
                 diff_val = convert(row['Diff'])
+                # Cleaning justification specifically for text like "2,800 pesos were monthly spent on Pool Equipment. Adding"
+                clean_note = str(row['2026 Notes']).replace("¨", "").replace("¨", "")
                 with st.expander(f"**{row['Area']}**: {symbol[currency]}{diff_val:,.0f}"):
-                    st.write(f"**Justification:** {row['2026 Notes']}")
+                    st.write(f"**Justification:** {clean_note}")
 
         # --- VISUAL TRENDS BY CATEGORY ---
         st.divider()
@@ -176,7 +180,9 @@ if check_password():
         # --- DETAILED TRENDS BY AREA ---
         st.divider()
         st.header("🔍 Detailed Trends by Area")
-        selected_cat = st.selectbox("Filter by Category", main_df['Category'].unique())
+        # Order Categories Alphabetically for consistent dropdown menu
+        dropdown_options = sorted(main_df['Category'].unique())
+        selected_cat = st.selectbox("Filter by Category", dropdown_options)
         
         # Fixed maximum: 2.5M MXN converted to selected currency
         max_y = convert(2500000)
@@ -207,12 +213,15 @@ if check_password():
         def highlight_increase(s):
             return ['background-color: #ffcccc' if (isinstance(v, float) and v > 0) else '' for v in s]
 
-        # Use the 'Line' column for indexing, start from 1
+        # Use the 'Line' column for indexing, format to one decimal place
         table_df = area_df[['Line', 'Area', '2025 Actuals', '2026 Budget', 'Var %', '2026 Notes']].copy()
-        table_df.columns = ['#', 'Area', f'2025 Actuals ({symbol[currency]})', f'2026 Budget ({symbol[currency]})', 'Var %', 'Justification']
+        # Ensure 'Line' is float for one decimal place formatting
+        table_df['Line'] = table_df['Line'].astype(float)
+        table_df.columns = ['Line #', 'Area', f'2025 Actuals ({symbol[currency]})', f'2026 Budget ({symbol[currency]})', 'Var %', 'Justification']
 
         st.dataframe(
             table_df.style.apply(highlight_increase, subset=['Var %']).format({
+                'Line #': '{:.1f}',
                 f'2025 Actuals ({symbol[currency]})': '{:,.2f}',
                 f'2026 Budget ({symbol[currency]})': '{:,.2f}',
                 'Var %': '{:.1f}%'
