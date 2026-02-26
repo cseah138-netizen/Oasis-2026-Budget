@@ -1,4 +1,3 @@
 streamlit
 pandas
 plotly
-2.  **Streamlit Cloud Deployment:**
