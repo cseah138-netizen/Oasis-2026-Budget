@@ -13,7 +13,7 @@ st.markdown("""
     .stDataFrame { font-size: 14px; }
     [data-testid="stMetricDelta"] svg { display: none; }
 </style>
-""", unsafe_value_safe=True)
+""", unsafe_allow_html=True)
 
 # --- PASSWORD PROTECTION ---
 def check_password():
