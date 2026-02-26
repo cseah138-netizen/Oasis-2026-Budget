@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
+import re
 
 # --- CONFIGURATION ---
 st.set_page_config(page_title="Oasis HOA 2026 Budget", layout="wide")
@@ -12,6 +13,8 @@ st.markdown("""
 <style>
     .stDataFrame { font-size: 14px; }
     [data-testid="stMetricDelta"] svg { display: none; }
+    /* Make metrics and dropdowns look clean */
+    .stExpander { border: none !important; box-shadow: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -67,13 +70,35 @@ if check_password():
             '2026 Budget': '#EF4444'   # Red
         }
 
-        # Apply conversion
+        # Apply conversion to a working dataframe
         df = raw_df.copy()
+        
+        # --- RE-MAPPING LOGIC FOR DRIVERS ---
+        # Requirement: Combine 2025 actuals if budget was moved between areas
+        # We look for "See line X" or "Already in Line X" in 2026 notes
+        adj_df = df.copy()
+        for idx, row in adj_df.iterrows():
+            note = str(row['2026 Notes'])
+            match = re.search(r'(?:See line|Already in Line)\s+(\d+)', note, re.IGNORECASE)
+            if match:
+                target_line = int(match.group(1))
+                # Find the target row by the 'Line' column
+                target_idx = adj_df[adj_df['Line'] == target_line].index
+                if not target_idx.empty:
+                    # Add current 2025 actuals to the target's 2025 actuals for driver calc purposes
+                    adj_df.at[target_idx[0], '2025 Actuals'] += row['2025 Actuals']
+                    # Zero out the current one so it doesn't show as a massive decrease/increase incorrectly
+                    adj_df.at[idx, '2025 Actuals'] = 0
+
+        # Calculate variance on adjusted data
+        adj_df['Diff'] = adj_df['2026 Budget'] - adj_df['2025 Actuals']
+        
+        # Now convert all display values in the primary df
         val_cols = ['2024 Actuals', '2025 Actuals', '2026 Budget']
         for col in val_cols:
             df[col] = df[col].apply(convert)
 
-        # Variance Calculation (Fix: 100% if 2025 is zero and 2026 exists)
+        # Variance for the table (standard calculation)
         df['Increase_Amt'] = df['2026 Budget'] - df['2025 Actuals']
         df['Var %'] = df.apply(lambda row: 100.0 if (row['2025 Actuals'] == 0 and row['2026 Budget'] > 0) 
                               else (row['Increase_Amt'] / row['2025 Actuals'] * 100 if row['2025 Actuals'] != 0 else 0), axis=1)
@@ -85,8 +110,8 @@ if check_password():
         # --- HELP SECTION ---
         with st.expander("❓ Help: How to read this dashboard"):
             st.markdown(f"""
-            - **Top 5 Drivers:** Shows the specific areas where our budget is increasing and decreasing the most compared to last year's actual spending.
-            - **Visual Trends:** Compare historical spending actuals (2024/2025) against the 2026 proposed budget. In the chart legend, click the colors to turn them ON or OFF.
+            - **Top 5 Drivers:** Specific areas where the 2026 budget is increasing or decreasing compared to last year's actual spending.
+            - **Spending & Detailed Trends:** Compare historical spending actuals (2024/2025) against the 2026 proposed budget. In the chart legend, click the colors to turn them ON or OFF.
             - **Hovering:** Move your mouse over any bar in the 'Trends by Area' chart to see the specific justification note from the HOA.
             - **Detailed Data Table:** Any row highlighted in red indicates a budget increase of over 0%. Double click a Justification cell to see all the text in the cell.
             """)
@@ -94,7 +119,6 @@ if check_password():
         # --- RESERVE FUND SECTION ---
         st.divider()
         st.header("📈 Reserve Fund Accumulation")
-        # Extract Reserve Fund (exclude from general charts later)
         reserve_data = df[df['Category'].str.contains('Reserve', case=False, na=False)].sum(numeric_only=True)
         
         fig_reserve = go.Figure()
@@ -103,12 +127,14 @@ if check_password():
         fig_reserve.add_trace(go.Bar(y=y_axis, x=[reserve_data['2025 Actuals']], name='2025 Actuals', orientation='h', marker_color=color_map['2025 Actuals']))
         fig_reserve.add_trace(go.Bar(y=y_axis, x=[reserve_data['2026 Budget']], name='2026 Budget', orientation='h', marker_color=color_map['2026 Budget']))
         
-        fig_reserve.update_layout(barmode='stack', height=200, margin=dict(l=20, r=20, t=30, b=20),
+        # Height reduced by half (from 200 to 100)
+        fig_reserve.update_layout(barmode='stack', height=120, margin=dict(l=20, r=20, t=10, b=10),
                                   xaxis_title=f"Total Collected ({symbol[currency]})", showlegend=True)
         st.plotly_chart(fig_reserve, use_container_width=True)
 
-        # Filter out Reserve Fund for the rest of the analysis
+        # Filter out Reserve Fund for analysis
         main_df = df[~df['Category'].str.contains('Reserve', case=False, na=False)].copy()
+        main_adj_df = adj_df[~adj_df['Category'].str.contains('Reserve', case=False, na=False)].copy()
 
         # --- DRIVERS (INCREASE & DECREASE) ---
         st.divider()
@@ -117,15 +143,20 @@ if check_password():
         inc_col, dec_col = st.columns(2)
         with inc_col:
             st.subheader("Top 5 Increases")
-            top_inc = main_df.nlargest(5, 'Increase_Amt')
+            top_inc = main_adj_df.nlargest(5, 'Diff')
             for _, row in top_inc.iterrows():
-                st.write(f"**{row['Area']}**: +{symbol[currency]}{row['Increase_Amt']:,.0f} ({row['Var %']:.1f}%)")
+                # Display converted amounts
+                diff_val = convert(row['Diff'])
+                with st.expander(f"**{row['Area']}**: +{symbol[currency]}{diff_val:,.0f}"):
+                    st.write(f"**Justification:** {row['2026 Notes']}")
         
         with dec_col:
             st.subheader("Top 5 Decreases")
-            top_dec = main_df.nsmallest(5, 'Increase_Amt')
+            top_dec = main_adj_df.nsmallest(5, 'Diff')
             for _, row in top_dec.iterrows():
-                st.write(f"**{row['Area']}**: {symbol[currency]}{row['Increase_Amt']:,.0f} ({row['Var %']:.1f}%)")
+                diff_val = convert(row['Diff'])
+                with st.expander(f"**{row['Area']}**: {symbol[currency]}{diff_val:,.0f}"):
+                    st.write(f"**Justification:** {row['2026 Notes']}")
 
         # --- VISUAL TRENDS BY CATEGORY ---
         st.divider()
@@ -147,9 +178,8 @@ if check_password():
         st.header("🔍 Detailed Trends by Area")
         selected_cat = st.selectbox("Filter by Category", main_df['Category'].unique())
         
-        # Calculate max scale based on Salaries (if available) or global max
-        salaries_budget = main_df[main_df['Area'].str.contains('Salaries', case=False, na=False)]['2026 Budget'].max()
-        max_y = salaries_budget if salaries_budget > 0 else main_df['2026 Budget'].max()
+        # Fixed maximum: 2.5M MXN converted to selected currency
+        max_y = convert(2500000)
 
         area_df = main_df[main_df['Category'] == selected_cat]
         area_melted = area_df.melt(
@@ -164,9 +194,10 @@ if check_password():
             barmode='group',
             hover_data={'2026 Notes': True, 'Amount': ':,.2f'},
             color_discrete_map=color_map,
-            title=f"Detailed view: {selected_cat}"
+            title=f"Detailed view: {selected_cat} (Fixed Scale)",
+            height=800 # Double the height for better hover experience
         )
-        fig_area.update_yaxes(range=[0, max_y * 1.1]) # Fixed scale for easy comparison
+        fig_area.update_yaxes(range=[0, max_y]) 
         st.plotly_chart(fig_area, use_container_width=True)
 
         # --- HEAT MAP TABLE ---
@@ -176,17 +207,18 @@ if check_password():
         def highlight_increase(s):
             return ['background-color: #ffcccc' if (isinstance(v, float) and v > 0) else '' for v in s]
 
-        table_df = area_df[['Area', '2025 Actuals', '2026 Budget', 'Var %', '2026 Notes']]
-        table_df.columns = ['Area', f'2025 Actuals ({symbol[currency]})', f'2026 Budget ({symbol[currency]})', 'Var %', 'Justification']
+        # Use the 'Line' column for indexing, start from 1
+        table_df = area_df[['Line', 'Area', '2025 Actuals', '2026 Budget', 'Var %', '2026 Notes']].copy()
+        table_df.columns = ['#', 'Area', f'2025 Actuals ({symbol[currency]})', f'2026 Budget ({symbol[currency]})', 'Var %', 'Justification']
 
         st.dataframe(
             table_df.style.apply(highlight_increase, subset=['Var %']).format({
                 f'2025 Actuals ({symbol[currency]})': '{:,.2f}',
                 f'2026 Budget ({symbol[currency]})': '{:,.2f}',
                 'Var %': '{:.1f}%'
-            }),
+            }).hide(axis='index'), # Hide the default 0-based dataframe index
             use_container_width=True,
-            height=400
+            height=500
         )
 
         # --- DOWNLOAD ---
