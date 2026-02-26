@@ -149,7 +149,7 @@ if check_password():
                 diff_val = convert(row['Diff'])
                 # Cleaning justification for display
                 clean_note = str(row['2026 Notes']).replace("¨", "").replace("¨", "")
-                with st.expander(f"**{row['Area']}**: +{symbol[currency]}{diff_val:,.0f}"):
+                with st.expander(f"**{row['Category']} - {row['Area']}**: +{symbol[currency]}{diff_val:,.0f}"):
                     st.write(f"**Justification:** {clean_note}")
         
         with dec_col:
@@ -157,9 +157,9 @@ if check_password():
             top_dec = main_adj_df.nsmallest(5, 'Diff')
             for _, row in top_dec.iterrows():
                 diff_val = convert(row['Diff'])
-                # Cleaning justification specifically for text like "2,800 pesos were monthly spent on Pool Equipment. Adding"
+                # Cleaning justification
                 clean_note = str(row['2026 Notes']).replace("¨", "").replace("¨", "")
-                with st.expander(f"**{row['Area']}**: {symbol[currency]}{diff_val:,.0f}"):
+                with st.expander(f"**{row['Category']} - {row['Area']}**: {symbol[currency]}{diff_val:,.0f}"):
                     st.write(f"**Justification:** {clean_note}")
 
         # --- VISUAL TRENDS BY CATEGORY ---
